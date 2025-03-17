@@ -40,6 +40,7 @@
     @include('layouts.partial.sidebar')
     @endif 
     @yield('content')
+    
     @include('layouts.partial.footer')
     {{-- @else
     @yield('content')--}}

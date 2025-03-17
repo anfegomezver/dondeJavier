@@ -1,6 +1,15 @@
 @extends('layouts.applogin')
 
 @section('content')
+
+    @if (session('success'))
+        <div id="floating-alert" class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3"
+            role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="login-box p-4 rounded shadow-lg bg-white">
         <div class="login-logo text-center  rounded bg-white bg-opacity-75 shadow">
             <img src="{{ asset('logo.png') }}" alt="Logo" class="img-fluid w-100 rounded">
@@ -81,7 +90,7 @@
                             {{ __('Register a new membership') }}
                         </a>
                     @endif
-                    
+
                 </p>
             </div>
             <!-- /.login-card-body -->

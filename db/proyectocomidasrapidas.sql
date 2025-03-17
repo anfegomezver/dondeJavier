@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2025 a las 13:53:01
+-- Tiempo de generación: 16-03-2025 a las 22:59:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -48,6 +48,51 @@ CREATE TABLE `cache_locks` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `carteraclientes`
+--
+
+CREATE TABLE `carteraclientes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `id_factura` bigint(20) UNSIGNED NOT NULL,
+  `abono` decimal(8,0) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carteracompras`
+--
+
+CREATE TABLE `carteracompras` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `id_orden_compra` bigint(20) UNSIGNED NOT NULL,
+  `abono` decimal(8,0) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `registrado_por` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `clientes`
 --
 
@@ -57,9 +102,44 @@ CREATE TABLE `clientes` (
   `documento` varchar(255) NOT NULL,
   `correo` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `numeroTelefono` varchar(255) NOT NULL,
-  `fechaNacimiento` date DEFAULT NULL,
-  `estado` varchar(255) DEFAULT NULL,
+  `numero_telefono` varchar(255) NOT NULL,
+  `fecha_nacimiento` date DEFAULT NULL,
+  `registrado_por` varchar(255) NOT NULL,
+  `estado_civil` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detallefactura`
+--
+
+CREATE TABLE `detallefactura` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_factura` bigint(20) UNSIGNED NOT NULL,
+  `id_producto` bigint(20) UNSIGNED NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` decimal(8,0) NOT NULL,
+  `subtotal` decimal(8,0) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalleordencompra`
+--
+
+CREATE TABLE `detalleordencompra` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_orden_compra` bigint(20) UNSIGNED NOT NULL,
+  `id_producto` bigint(20) UNSIGNED NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `precio_unitario` decimal(8,0) NOT NULL,
+  `subtotal` decimal(8,0) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -72,11 +152,12 @@ CREATE TABLE `clientes` (
 
 CREATE TABLE `facturas` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `id_cliente` bigint(20) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `total` decimal(8,0) NOT NULL,
   `estado` varchar(255) NOT NULL,
-  `cliente_id` bigint(20) UNSIGNED NOT NULL,
-  `registradoPor` varchar(255) NOT NULL,
+  `monto_total` decimal(8,0) NOT NULL,
+  `id_forma_pago` bigint(20) UNSIGNED NOT NULL,
+  `registrado_por` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -95,6 +176,20 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext NOT NULL,
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `formaspago`
+--
+
+CREATE TABLE `formaspago` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `metodo_pago` varchar(255) NOT NULL,
+  `detalles_pago` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -152,10 +247,35 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '2025_03_10_070310_create_clientes_table', 2),
-(5, '2025_03_10_072649_create_facturas_table', 3),
-(6, '2025_03_10_074629_create_facturas_table', 4),
-(7, '2025_03_10_074929_create_facturas_table', 5);
+(4, '2025_03_10_070310_create_clientes_table', 1),
+(5, '2025_03_16_155806_create_formaspago_table', 1),
+(6, '2025_03_16_155848_create_facturas_table', 1),
+(7, '2025_03_16_160208_create_carteraclientes_table', 1),
+(8, '2025_03_16_160534_create_categorias_table', 1),
+(9, '2025_03_16_161016_create_productos_table', 1),
+(10, '2025_03_16_162031_create_detallefactura_table', 1),
+(11, '2025_03_16_162245_create_proveedores_table', 1),
+(12, '2025_03_16_162524_create_ordencompras_table', 1),
+(13, '2025_03_16_162727_create_detalleordencompra_table', 1),
+(14, '2025_03_16_163446_create_carteracompras_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ordencompras`
+--
+
+CREATE TABLE `ordencompras` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_proveedor` bigint(20) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL,
+  `estado` varchar(255) NOT NULL,
+  `monto_total` decimal(8,0) NOT NULL,
+  `id_forma_pago` bigint(20) UNSIGNED NOT NULL,
+  `registrado_por` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -169,13 +289,44 @@ CREATE TABLE `password_reset_tokens` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `password_reset_tokens`
+-- Estructura de tabla para la tabla `productos`
 --
 
-INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
-('afgomezv@ufpso.edu.co', '$2y$12$xeasCOhbdy.dK6lrpfi3Q.FSAh0OXozeOzS7hFzpZw1rGfw3QKAA6', '2025-03-03 05:06:48'),
-('anfegomezver@gmail.com', '$2y$12$OV.B3U4W4VsgntcCuEwuGOjBHvX2tAKFnsIH08RulmeMbcl/iHh8C', '2025-02-20 20:32:25');
+CREATE TABLE `productos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_categoria` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL,
+  `precio_compra` decimal(8,0) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `precio_venta` decimal(8,0) NOT NULL,
+  `stock_minimo` int(11) NOT NULL,
+  `registrado_por` varchar(255) NOT NULL,
+  `fecha_vencimiento` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `registrado_por` varchar(255) NOT NULL,
+  `correo` varchar(255) DEFAULT NULL,
+  `direccion` varchar(255) DEFAULT NULL,
+  `numero_telefono` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -191,15 +342,6 @@ CREATE TABLE `sessions` (
   `payload` longtext NOT NULL,
   `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Volcado de datos para la tabla `sessions`
---
-
-INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('fePLtdE89iHRqs0FHz8AtaUpxIQoQP5VJhegFo8g', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoia1Z5SUxwMTFmTzk0d0hOQjFkejJRcXJINzFXVlpJU21za0dkaXpMbiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1741488312),
-('mGFeJcPQQEVVMGdZMK348GICAOfxrMw6lJDN4d7G', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY3N4WGJ2WFJydGpmZU9rZDhFMjBybkw1Z2NPMlUwZU1uSEsxN3JDNCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9kb25kZWphdmllci5sb2NhbC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1741488323),
-('v1St0RDqvB6143RBIPe4DdXfNR4CIrvRfd8Zv3l5', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoid0tWTWtMcnBYV0NlYnhJQTg0WTlMNnJneFVKNm1Pa2hEazkwSkNmMiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9ob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTtzOjQ6ImF1dGgiO2E6MTp7czoyMToicGFzc3dvcmRfY29uZmlybWVkX2F0IjtpOjE3NDE2MDY5Njk7fX0=', 1741606969);
 
 -- --------------------------------------------------------
 
@@ -219,13 +361,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Andres Felipe Gomez Verjel', 'afgomezv@ufpso.edu.co', NULL, '$2y$12$9GRUxYAjAE/ryrX1/dpOJOAxFB9l7tf3p3QNzK5EEc56wqgZHLnrq', '16QUItcGnooQqyO0OSC9xaDUreo7eTZekpFQKhA6154VOiNZH2VjQj8Aotm4', '2025-02-20 20:20:10', '2025-03-03 04:37:14');
-
---
 -- Índices para tablas volcadas
 --
 
@@ -242,17 +377,54 @@ ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
 
 --
+-- Indices de la tabla `carteraclientes`
+--
+ALTER TABLE `carteraclientes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carteraclientes_id_factura_foreign` (`id_factura`);
+
+--
+-- Indices de la tabla `carteracompras`
+--
+ALTER TABLE `carteracompras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carteracompras_id_orden_compra_foreign` (`id_orden_compra`);
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `clientes`
 --
 ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `detallefactura`
+--
+ALTER TABLE `detallefactura`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detallefactura_id_factura_foreign` (`id_factura`),
+  ADD KEY `detallefactura_id_producto_foreign` (`id_producto`);
+
+--
+-- Indices de la tabla `detalleordencompra`
+--
+ALTER TABLE `detalleordencompra`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `detalleordencompra_id_orden_compra_foreign` (`id_orden_compra`),
+  ADD KEY `detalleordencompra_id_producto_foreign` (`id_producto`);
+
+--
 -- Indices de la tabla `facturas`
 --
 ALTER TABLE `facturas`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `facturas_cliente_id_foreign` (`cliente_id`);
+  ADD KEY `facturas_id_cliente_foreign` (`id_cliente`),
+  ADD KEY `facturas_id_forma_pago_foreign` (`id_forma_pago`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -260,6 +432,12 @@ ALTER TABLE `facturas`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indices de la tabla `formaspago`
+--
+ALTER TABLE `formaspago`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `jobs`
@@ -281,10 +459,31 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `ordencompras`
+--
+ALTER TABLE `ordencompras`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ordencompras_id_proveedor_foreign` (`id_proveedor`),
+  ADD KEY `ordencompras_id_forma_pago_foreign` (`id_forma_pago`);
+
+--
 -- Indices de la tabla `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `productos_id_categoria_foreign` (`id_categoria`);
+
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `sessions`
@@ -306,9 +505,39 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `carteraclientes`
+--
+ALTER TABLE `carteraclientes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `carteracompras`
+--
+ALTER TABLE `carteracompras`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detallefactura`
+--
+ALTER TABLE `detallefactura`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalleordencompra`
+--
+ALTER TABLE `detalleordencompra`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -324,6 +553,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `formaspago`
+--
+ALTER TABLE `formaspago`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `jobs`
 --
 ALTER TABLE `jobs`
@@ -333,23 +568,81 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `ordencompras`
+--
+ALTER TABLE `ordencompras`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
+-- Filtros para la tabla `carteraclientes`
+--
+ALTER TABLE `carteraclientes`
+  ADD CONSTRAINT `carteraclientes_id_factura_foreign` FOREIGN KEY (`id_factura`) REFERENCES `facturas` (`id`);
+
+--
+-- Filtros para la tabla `carteracompras`
+--
+ALTER TABLE `carteracompras`
+  ADD CONSTRAINT `carteracompras_id_orden_compra_foreign` FOREIGN KEY (`id_orden_compra`) REFERENCES `ordencompras` (`id`);
+
+--
+-- Filtros para la tabla `detallefactura`
+--
+ALTER TABLE `detallefactura`
+  ADD CONSTRAINT `detallefactura_id_factura_foreign` FOREIGN KEY (`id_factura`) REFERENCES `facturas` (`id`),
+  ADD CONSTRAINT `detallefactura_id_producto_foreign` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
+
+--
+-- Filtros para la tabla `detalleordencompra`
+--
+ALTER TABLE `detalleordencompra`
+  ADD CONSTRAINT `detalleordencompra_id_orden_compra_foreign` FOREIGN KEY (`id_orden_compra`) REFERENCES `ordencompras` (`id`),
+  ADD CONSTRAINT `detalleordencompra_id_producto_foreign` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`);
+
+--
 -- Filtros para la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD CONSTRAINT `facturas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+  ADD CONSTRAINT `facturas_id_cliente_foreign` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `facturas_id_forma_pago_foreign` FOREIGN KEY (`id_forma_pago`) REFERENCES `formaspago` (`id`);
+
+--
+-- Filtros para la tabla `ordencompras`
+--
+ALTER TABLE `ordencompras`
+  ADD CONSTRAINT `ordencompras_id_forma_pago_foreign` FOREIGN KEY (`id_forma_pago`) REFERENCES `formaspago` (`id`),
+  ADD CONSTRAINT `ordencompras_id_proveedor_foreign` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`);
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_id_categoria_foreign` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

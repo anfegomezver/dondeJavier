@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Factura extends Model
+class Ordencompra extends Model
 {
-
     use HasFactory;
 
-    protected $table ='facturas';
+    protected $table ='ordencompras';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id_cliente',
+        'id_proveedor',
         'fecha',
         'estado',
         'monto_total',
@@ -22,21 +21,18 @@ class Factura extends Model
         
     ];
     
-    public function cliente(){
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+    public function proveedor(){
+        return $this->belongsTo(Proveedor::class, 'id_proveedor');
     }
 
     public function formaspago(){
-        
         return $this->belongsTo(Formapago::class, 'id_forma_pago');
     }
 
-    public function carteraclientes(){
-        return $this->hasMany(Carteracliente::class,'id_factura');
+    public function carteracompras(){
+        return $this->hasMany(Carteracompra::class,'id_orden_compra');
     }
-    public function detallefactura(){
-        return $this->hasMany(Detallefactura::class,'id_factura');
+    public function detalleordencompra(){
+        return $this->hasMany(Detalleordencompra::class,'id_orden_compra');
     }
 }
-
-

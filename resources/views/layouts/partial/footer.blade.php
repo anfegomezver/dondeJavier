@@ -1,7 +1,10 @@
-<footer class="{{ trim(Request::is('home') ? 'main-footer' : 'fixed-bottom') }}">
-    <strong>Copyright &copy; 2025 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 1.0.0
+<footer class="main-footer bg-dark text-light py-3 px-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <strong>&copy; 2025 <span class="text-warning">Donde Javier</span> Una tradición desde 1998</strong>
+        </div>
+        <div>
+            <b>Versión:</b> 1.0.0
+        </div>
     </div>
 </footer>
