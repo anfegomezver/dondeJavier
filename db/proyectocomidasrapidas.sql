@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-03-2025 a las 22:59:11
+-- Tiempo de generación: 25-03-2025 a las 04:41:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -60,6 +60,20 @@ CREATE TABLE `carteraclientes` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `carteraclientes`
+--
+
+INSERT INTO `carteraclientes` (`id`, `fecha`, `id_factura`, `abono`, `created_at`, `updated_at`) VALUES
+(1, '2023-10-28', 1, 20000, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(2, '2024-04-10', 3, 10100, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(3, '2024-05-27', 4, 8350, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(4, '2023-05-21', 5, 11750, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(5, '2024-11-08', 8, 20050, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(6, '2023-06-07', 9, 750, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(7, '2024-12-24', 10, 32150, '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(8, '2025-03-24', 3, 10350, '2025-03-25 03:39:37', '2025-03-25 03:39:37');
+
 -- --------------------------------------------------------
 
 --
@@ -109,6 +123,15 @@ CREATE TABLE `clientes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `documento`, `correo`, `direccion`, `numero_telefono`, `fecha_nacimiento`, `registrado_por`, `estado_civil`, `created_at`, `updated_at`) VALUES
+(1, 'Dr. Elenor Block DVM', '06981309', 'marks.jonathan@example.org', '732 Kiara Lodge Suite 228\nWest Kevenland, TN 76641', '1-571-306-1983', '2021-07-23', '3', 'Casado', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(2, 'Emie Ullrich DVM', '89535003', 'abeatty@example.net', '809 Baumbach Lakes\nJacquesbury, UT 36870-9513', '719-237-3862', '1986-01-18', '1', 'Casado', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(3, 'Garfield Schaefer', '36092795', 'lwilliamson@example.net', '149 Lemke Spurs Apt. 408\nWinonabury, DE 24011', '(325) 254-0685', '2006-12-05', '1', 'Viudo', '2025-03-25 03:38:53', '2025-03-25 03:38:53');
 
 -- --------------------------------------------------------
 
@@ -162,6 +185,22 @@ CREATE TABLE `facturas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `facturas`
+--
+
+INSERT INTO `facturas` (`id`, `id_cliente`, `fecha`, `estado`, `monto_total`, `id_forma_pago`, `registrado_por`, `created_at`, `updated_at`) VALUES
+(1, 1, '2023-10-28', 'Pendiente', 63400, 1, '3', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(2, 1, '2024-02-19', 'Pagada', 42750, 2, '3', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(3, 1, '2024-04-10', 'Pagada', 20450, 3, '2', '2025-03-25 03:38:53', '2025-03-25 03:39:37'),
+(4, 2, '2024-05-27', 'Pendiente', 47050, 4, '1', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(5, 2, '2023-05-21', 'Pendiente', 20300, 5, '1', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(6, 1, '2025-02-22', 'Pagada', 22050, 6, '3', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(7, 2, '2025-01-07', 'Pagada', 37650, 7, '1', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(8, 2, '2024-11-08', 'Pendiente', 67150, 8, '3', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(9, 3, '2023-06-07', 'Pendiente', 1300, 9, '1', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(10, 2, '2024-12-24', 'Pendiente', 77550, 10, '2', '2025-03-25 03:38:53', '2025-03-25 03:38:53');
+
 -- --------------------------------------------------------
 
 --
@@ -191,6 +230,22 @@ CREATE TABLE `formaspago` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `formaspago`
+--
+
+INSERT INTO `formaspago` (`id`, `metodo_pago`, `detalles_pago`, `created_at`, `updated_at`) VALUES
+(1, 'tarjeta_de_credito', '7OXTSFIDBI', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(2, 'efectivo', '4U4VP32TVX', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(3, 'tarjeta_de_credito', 'ADRELYP3B0', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(4, 'tarjeta_de_credito', '5YSFED0Z0R', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(5, 'tarjeta_de_credito', 'F94E9I8YC5', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(6, 'transferencia', 'CDZFUW76W5', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(7, 'efectivo', '1PHUXRPG9B', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(8, 'tarjeta_de_credito', 'U4M4M9ZJDL', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(9, 'efectivo', '5JKIWC4BIR', '2025-03-25 03:38:53', '2025-03-25 03:38:53'),
+(10, 'tarjeta_de_credito', 'GZL3YLU64G', '2025-03-25 03:38:53', '2025-03-25 03:38:53');
 
 -- --------------------------------------------------------
 
@@ -361,6 +416,15 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Mrs. Kaycee Gulgowski PhD', 'xrunolfsson@example.net', '2025-03-25 03:38:36', '$2y$12$15G3SJcnNw2ewO1oqpJOpeswq/.qFeQ6hGhcdHDDDAXnJH9P7XVwW', '8qVSLhi3DF', '2025-03-25 03:38:36', '2025-03-25 03:38:36'),
+(2, 'Prof. Rocky Greenfelder', 'turcotte.sebastian@example.org', '2025-03-25 03:38:36', '$2y$12$15G3SJcnNw2ewO1oqpJOpeswq/.qFeQ6hGhcdHDDDAXnJH9P7XVwW', '2kIHnF8lrn', '2025-03-25 03:38:36', '2025-03-25 03:38:36'),
+(3, 'Benny Dach', 'ora29@example.com', '2025-03-25 03:38:36', '$2y$12$15G3SJcnNw2ewO1oqpJOpeswq/.qFeQ6hGhcdHDDDAXnJH9P7XVwW', 'XhPt5ssQVz', '2025-03-25 03:38:36', '2025-03-25 03:38:36');
+
+--
 -- Índices para tablas volcadas
 --
 
@@ -508,7 +572,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `carteraclientes`
 --
 ALTER TABLE `carteraclientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `carteracompras`
@@ -526,7 +590,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `detallefactura`
@@ -544,7 +608,7 @@ ALTER TABLE `detalleordencompra`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -556,7 +620,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `formaspago`
 --
 ALTER TABLE `formaspago`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `jobs`
@@ -592,7 +656,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
