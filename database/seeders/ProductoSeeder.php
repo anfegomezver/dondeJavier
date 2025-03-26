@@ -25,16 +25,16 @@ class ProductoSeeder extends Seeder
         $productos = [
 
             // Salchipapas
-            ['nombre' => 'Salchipapas', 'categoria' => 'Picadas', 'precio_venta' => 12000],
-            ['nombre' => 'Salchipapas Mixta', 'categoria' => 'Picadas', 'precio_venta' => 14000],
+            ['nombre' => 'Salchipapas', 'categoria' => 'Salchipapas', 'precio_venta' => 12000],
+            ['nombre' => 'Salchipapas Mixta', 'categoria' => 'Salchipapas', 'precio_venta' => 14000],
             
+            // Choripapas
+            ['nombre' => 'Choripapas', 'categoria' => 'Choripapas', 'precio_venta' => 13000],
+            ['nombre' => 'Choripapas Mixta', 'categoria' => 'Choripapas', 'precio_venta' => 15000],
+
             // Picadas
             ['nombre' => 'Picada Individual', 'categoria' => 'Picadas', 'precio_venta' => 20000],
             ['nombre' => 'Picada para 3 personas', 'categoria' => 'Picadas', 'precio_venta' => 38000],
-
-            // Papas y Derivados
-            ['nombre' => 'Salchipapas', 'categoria' => 'Papas y Derivados', 'precio_venta' => 12000],
-            ['nombre' => 'Choripapas', 'categoria' => 'Papas y Derivados', 'precio_venta' => 13000],
 
             // Hamburguesas
             ['nombre' => 'Hamburguesa Sencilla', 'categoria' => 'Hamburguesas', 'precio_venta' => 12000],
@@ -61,36 +61,7 @@ class ProductoSeeder extends Seeder
             ['nombre' => 'Mini Hamburguesa Mixta', 'categoria' => 'Mini Hamburguesas', 'precio_venta' => 12000],
             ['nombre' => 'Mini Hamburguesa Combo', 'categoria' => 'Mini Hamburguesas', 'precio_venta' => 14000],
 
-            ['nombre' => 'Hamburguesa Sencilla', 'categoria' => 'Hamburguesas', 'precio_venta' => 12000],
-            ['nombre' => 'Hamburguesa Pollo', 'categoria' => 'Hamburguesas', 'precio_venta' => 13000],
-            ['nombre' => 'Hamburguesa Pollo + Papa', 'categoria' => 'Hamburguesas', 'precio_venta' => 15000],
-            ['nombre' => 'Hamburguesa Mixta', 'categoria' => 'Hamburguesas', 'precio_venta' => 16000],
-            ['nombre' => 'Hamburguesa Combo', 'categoria' => 'Hamburguesas', 'precio_venta' => 18000],
-            ['nombre' => 'Hamburguesa Sencilla + Papa', 'categoria' => 'Hamburguesas', 'precio_venta' => 15000],
-            ['nombre' => 'Hamburguesa Doble', 'categoria' => 'Hamburguesas', 'precio_venta' => 20000],
-            ['nombre' => 'Hamburguesa Doble + Pollo', 'categoria' => 'Hamburguesas', 'precio_venta' => 22000],
-            ['nombre' => 'Hamburguesa Doble + Papa', 'categoria' => 'Hamburguesas', 'precio_venta' => 22000],
-            ['nombre' => 'Hamburguesa La Super', 'categoria' => 'Hamburguesas', 'precio_venta' => 26000],
-
-            ['nombre' => 'Perro Americano', 'categoria' => 'Comidas Rápidas', 'precio_venta' => 10000],
-            ['nombre' => 'Sándwich Sencillo', 'categoria' => 'Comidas Rápidas', 'precio_venta' => 5000],
-
-            // Picadas
-            ['nombre' => 'Picada Individual', 'categoria' => 'Picadas', 'precio_venta' => 20000],
-            ['nombre' => 'Picada para 3 personas', 'categoria' => 'Picadas', 'precio_venta' => 38000],
-
-            // Papas y Derivados
-            ['nombre' => 'Salchipapas', 'categoria' => 'Papas y Derivados', 'precio_venta' => 12000],
-            ['nombre' => 'Choripapas', 'categoria' => 'Papas y Derivados', 'precio_venta' => 13000],
-
-            // Bebidas
-            ['nombre' => 'Gaseosa Pequeña', 'categoria' => 'Bebidas', 'precio_venta' => 2000],
-            ['nombre' => 'Gaseosa Grande', 'categoria' => 'Bebidas', 'precio_venta' => 3000],
-            ['nombre' => 'Jugo Hit', 'categoria' => 'Bebidas', 'precio_venta' => 2500],
-
-            // Extras
-            ['nombre' => 'Porción de Papas', 'categoria' => 'Extras y Adiciones', 'precio_venta' => 5000],
-            ['nombre' => 'Porción de Chorizo', 'categoria' => 'Extras y Adiciones', 'precio_venta' => 5000],
+            //----------------------Falta agregar más productos----------------------
         ];
 
         foreach ($productos as $producto) {
